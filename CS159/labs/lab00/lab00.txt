@@ -1,0 +1,61 @@
+The following program submission has been recorded:
+
+Student: ozubi
+Class: CS159
+Section: 13310
+Assignment: lab00.c
+Submission: 2019-01-08 16:13
+
+If the above is incorrect, you are responsible for resubmitting the assignment or seeking assistance from a course staff member prior to the due date! Assignments will not be accepted by e-mail.
+
+If this is for a lab assignment, only one member is allowed to make a submission for the group.  Graders will not evaluate submissions from multiple group members to determine which effort you actually want graded.
+
+*** Please do not reply to this email ***
+
+The contents of the submission:
+     1	/***************************************************************************
+     2	*
+     3	*  Programmers and Purdue Email Addresses:
+     4	*	 1. ozubi@purdue.edu
+     5	*	 2. nfei@purdue.edu
+     6	*
+     7	*  Lab #: ZERO
+     8	*
+     9	*  Academic Integrity Statement:
+    10	*
+    11	*       We have not used source code obtained from
+    12	*       any other unauthorized source, either modified
+    13	*       or unmodified.  Neither have we provided access 
+    14	*       to our code to another. The project we are submitting
+    15	*       is our own original work.
+    16	*
+    17	*  Lab Division and Section: Weekday, time, and location is sufficient.
+    18	*
+    19	*  Program Description:  This assignment is not worth any points and is
+    20	*    intended for use as practice with the vi text editor, the gcc compiler,
+    21	*    and making submissions.  
+    22	*
+    23	*    You must replace login1 with your username.  The second login (login2)
+    24	*    should be for your lab instructor.  This is the ONLY time you will place
+    25	*    your lab instructor's name in an assignment.  In the future the extra
+    26	*    e-mails are for your lab partners.
+    27	*
+    28	*    Delete login3.  Any invalid e-mail address found inside of an assignment
+    29	*    header will result in your submission being refused.
+    30	*
+    31	***************************************************************************/
+    32	
+    33	#include<stdio.h>
+    34	
+    35	int main()
+    36	{
+    37	  // LOCAL DECLARATIONS
+    38	
+    39	  // EXECUTABLE STATEMENTS 
+    40	  printf("Welcome to CS 159!\n");
+    41	
+    42	  return(0);
+    43	}
+
+Course standards violations detected:
+ -0.1 Excessive number of blank lines

@@ -1,0 +1,78 @@
+The following program submission has been recorded:
+
+Student: ozubi
+Class: CS159
+Section: 13310
+Assignment: lab02.c
+Submission: 2019-01-28 12:48
+
+If the above is incorrect, you are responsible for resubmitting the assignment or seeking assistance from a course staff member prior to the due date! Assignments will not be accepted by e-mail.
+
+If this is for a lab assignment, only one member is allowed to make a submission for the group.  Graders will not evaluate submissions from multiple group members to determine which effort you actually want graded.
+
+*** Please do not reply to this email ***
+
+The contents of the submission:
+     1	
+     2	/***************************************************************************
+     3	*
+     4	*  Programmers and Purdue Email Addresses:
+     5	*  1. ozubi@purdue.edu
+     6	*  2. boesk@purdue.edu
+     7	*  3. cook297@purdue.edu
+     8	*
+     9	*  Lab #: Lab02
+    10	*
+    11	*  Academic Integrity Statement:
+    12	*
+    13	*  We have not used source code obtained from any other unauthorized source,
+    14	*  either modified or unmodified.  Neither have we provided access to our code
+    15	*  to another. The project we are submitting is our own original work.
+    16	*
+    17	*  Day, Time, Location of Lab: Tuesday, 3:30, SC 289
+    18	*
+    19	*  Program Description: The program generates a number from a sign value,
+    20	*  exponent value, and mantissa value given by the user. 
+    21	*
+    22	***************************************************************************/
+    23	#include <stdio.h>
+    24	#include <math.h>
+    25	
+    26	int main (void)
+    27	{
+    28	
+    29	//Local Declarations
+    30	  int signBinary; //sign value (0 or 1)
+    31	  int expoGiven; //exponent value given
+    32	  double mantissa; //given mantissa value
+    33	  int signVal; //calculated sign from binary digit
+    34	  double calcMantissa; //calculated mantissa (1 + mantissa)  
+    35	  int expoCalc;  //calculated exponent value
+    36	  double result; //calculated result from the given values
+    37	  int precision; //precision of the final result
+    38	
+    39	//Input Statements
+    40	  printf("Enter the sign value -> ");
+    41	  scanf("%d", &signBinary);
+    42	  printf("Enter the exponent value -> ");
+    43	  scanf("%d", &expoGiven);
+    44	  printf("Enter the mantissa value -> ");
+    45	  scanf("%lf", &mantissa);
+    46	
+    47	//Calculations
+    48	  signVal = pow(-1, signBinary); //calculation for the binary value
+    49	  expoCalc = expoGiven - 127; //calculation for the exponent value
+    50	  calcMantissa = 1 + mantissa; //calculation for the mantissa value
+    51	  result = signVal * pow(2, expoCalc) * calcMantissa; //calculation of the result value
+    52	  precision = (expoCalc / 3.0) + 2; //calculation for the percision of result value
+    53	
+    54	//Output Statements
+    55	  printf("\n           Sign Exponent   Mantissa\n");
+    56	  printf("Input: %7d %7d %12.2f\n", signBinary, expoGiven, mantissa);
+    57	  printf("Equation: %4d * 2 ^  %d * %9.2f\n", signVal, expoCalc, calcMantissa);
+    58	  printf("Result: %27.*f\n",precision, result);
+    59	
+    60	//Return Statement
+    61	  return 0;
+    62	
+    63	} //Main

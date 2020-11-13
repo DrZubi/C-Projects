@@ -1,0 +1,228 @@
+The following program submission has been recorded:
+
+Student: ozubi
+Class: CS159
+Section: 13310
+Assignment: lab04.c
+Submission: 2019-02-09 15:08
+
+If the above is incorrect, you are responsible for resubmitting the assignment or seeking assistance from a course staff member prior to the due date! Assignments will not be accepted by e-mail.
+
+If this is for a lab assignment, only one member is allowed to make a submission for the group.  Graders will not evaluate submissions from multiple group members to determine which effort you actually want graded.
+
+*** Please do not reply to this email ***
+
+The contents of the submission:
+     1	/**************************************************************************
+     2	*
+     3	*  Programmers and Purdue Email Addresses:
+     4	*  1. ozubi@purdue.edu
+     5	*  2. boesk@purdue.edu
+     6	*  3. cook297@purdue.edu (delete line if no third partner)
+     7	*
+     8	*  Lab #: 04
+     9	*
+    10	*  Academic Integrity Statement:
+    11	*
+    12	*  We have not used source code obtained from any other unauthorized source,
+    13	*  either modified or unmodified.  Neither have we provided access to our code
+    14	*  to another. The project we are submitting is our own original work.
+    15	*
+    16	*  Day, Time, Location of Lab: Tuesday, SC 289, 3:50 - 5:30
+    17	*
+    18	*  Program Description: With a given seed, this program generates a random point value
+    19	*  between 0 and 1000 and returns a letter grade. When the amount of poitns is 0,
+    20	*  it returns an N with the F letter grade.
+    21	*
+    22	***************************************************************************/
+    23	#include <stdio.h>
+    24	#include <stdlib.h>
+    25	
+    26	//Global Declarations
+    27	#define AMIN 800 //define A minimum number of points
+    28	#define BMIN 675 //defin B minimum number of points
+    29	#define CMIN 550 //define C minimum number of points
+    30	#define DMIN 425 //define D minimum number of points
+    31	#define MAXPOINTS 1000 //define maximum number of points
+    32	#define MINPOINTS 0 //define minimum number of points
+    33	  
+    34	int getSeed (void);
+    35	int getRandom (int);
+    36	void displayPoints (int);
+    37	char gradeCalc (int);
+    38	void displayGrade (char,int);
+    39	  
+    40	int main (void)
+    41	{
+    42	//Local Declarations
+    43	  int seed; //given seed from user
+    44	  int points; //random point value between 0 and 1000
+    45	  int grade; //letter grade earned by student
+    46	            
+    47	//User Input Statements
+    48	  seed = getSeed();
+    49	  points = getRandom(seed);
+    50	                  
+    51	//Grade Output Statements
+    52	  displayPoints(points);
+    53	  grade = gradeCalc(points);
+    54	  displayGrade(grade, points);
+    55	                          
+    56	//Return Statement
+    57	  return (0);
+    58	} //End Main
+    59	  
+    60	/***************************************************************************
+    61	*
+    62	*  Function Information
+    63	*
+    64	*  Name of Function: getSeed
+    65	*
+    66	*  Function Return Type: int
+    67	*
+    68	*  Parameters (list data type, name, and comment one per line): void
+    69	*
+    70	*  Function Description: This function gets the seed integer from user
+    71	*
+    72	***************************************************************************/
+    73	  
+    74	int getSeed (void)
+    75	{
+    76	//Local Declarations
+    77	  int input; //input number from user
+    78	        
+    79	//Statements
+    80	  printf("Enter the seed value -> ");
+    81	  scanf("%d", &input);
+    82	                
+    83	//Return Statement
+    84	  return (input);
+    85	} //end getSeed
+    86	  
+    87	/***************************************************************************
+    88	*
+    89	*  Function Information
+    90	*
+    91	*  Name of Function: random
+    92	*
+    93	*  Function Return Type: int
+    94	*
+    95	*  Parameters (list data type, name, and comment one per line):
+    96	*    1. int, seed, the seed entered by user
+    97	*
+    98	*  Function Description: This function takes in given seed value and
+    99	*  generates random value for points between 0 and 1000.
+   100	*
+   101	 ***************************************************************************/
+   102	  
+   103	int getRandom (int seed)
+   104	{
+   105	//Local Delarations
+   106	  int range; //range of possible points
+   107	  int randNo; //random number generated
+   108	          
+   109	//Statements
+   110	  srand(seed);              
+   111	  range = (MAXPOINTS - MINPOINTS) + 1;
+   112	  randNo = rand() % range + MINPOINTS;
+   113	                  
+   114	//Return Statement
+   115	  return (randNo);
+   116	} //End getRandom
+   117	  
+   118	/***************************************************************************
+   119	*
+   120	*  Function Information
+   121	*
+   122	*  Name of Function: displayPoints
+   123	*
+   124	*  Function Return Type: void
+   125	*
+   126	*  Parameters (list data type, name, and comment one per line):
+   127	*    1.int, points, random number of earned points (0 to 1000)
+   128	*
+   129	*  Function Description: This function displays the total number of points
+   130	*  earned by the student.
+   131	*
+   132	***************************************************************************/
+   133	  
+   134	void displayPoints (int points)
+   135	{
+   136	//Statements
+   137	  printf("\nTotal Points Earned: %d\n", points);
+   138	        
+   139	//Return Statement
+   140	  return;
+   141	} //End displayPoints
+   142	  
+   143	/***************************************************************************
+   144	*
+   145	*  Function Information
+   146	*
+   147	*  Name of Function: gradeCalc
+   148	*
+   149	*  Function Return Type: char
+   150	*
+   151	*  Parameters (list data type, name, and comment one per line):
+   152	*    1. int, points, number of points earned by student (0 to 1000)
+   153	*
+   154	*  Function Description: This function calculates the letter grade
+   155	*  earned by the student using given minimum letter grade requirements.
+   156	*
+   157	****************************************************************************/
+   158	  
+   159	char gradeCalc (int points)
+   160	{
+   161	//Local Declarations
+   162	  char letterGrade; //earned letter grade
+   163	  int gradeFactor; //factor to determine letter grade
+   164	  int gradeFactorD; //factors in when points is greater than 950
+   165	            
+   166	//Statements
+   167	  gradeFactor = points / AMIN;
+   168	  gradeFactor += points / BMIN;
+   169	  gradeFactor += points / CMIN;
+   170	                    
+   171	  gradeFactorD = points / DMIN;
+   172	  gradeFactorD = (gradeFactorD + 2) % (gradeFactorD + 1);
+   173	  gradeFactor += gradeFactorD;
+   174	                          
+   175	  letterGrade = 'F' - gradeFactor;
+   176	  letterGrade -= gradeFactorD;
+   177	                              
+   178	//Return Statement
+   179	  return (letterGrade);
+   180	} //End gradeCalc
+   181	  
+   182	/***************************************************************************
+   183	*
+   184	*  Function Information
+   185	*
+   186	*  Name of Function: displayGrade
+   187	*
+   188	*  Function Return Type: void
+   189	*
+   190	*  Parameters (list data type, name, and comment one per line):
+   191	*    1. char, grade, letter grade earned by student
+   192	*    2. int, points, points earned by student (0 to 1000)
+   193	*
+   194	*  Function Description: This function displays the letter grade earned
+   195	*  by the student and displays an N next to the F when the student earns
+   196	*  0 points.
+   197	*
+   198	****************************************************************************/
+   199	  
+   200	void displayGrade (char grade, int points)
+   201	{
+   202	//Local Declarations
+   203	  int factorN; //factor to get all points greater than 0 equal to 1
+   204	  char finalN; //final factor to display N next to F when 0, or a space when not 0
+   205	          
+   206	//Statements
+   207	  factorN = (points + 2) % (points + 1);
+   208	  finalN = 'N' - factorN * 46;
+   209	  printf("Course Grade Earned: %c%c\n",grade,finalN);
+   210	                  
+   211	//Return Statement
+   212	  return;
+   213	} //End displayGrade

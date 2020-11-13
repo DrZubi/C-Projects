@@ -1,0 +1,348 @@
+The following program submission has been recorded:
+
+Student: ozubi
+Class: CS159
+Section: 13310
+Assignment: hw07.c
+Submission: 2019-04-20 03:20
+
+If the above is incorrect, you are responsible for resubmitting the assignment or seeking assistance from a course staff member prior to the due date! Assignments will not be accepted by e-mail.
+
+If this is for a lab assignment, only one member is allowed to make a submission for the group.  Graders will not evaluate submissions from multiple group members to determine which effort you actually want graded.
+
+*** Please do not reply to this email ***
+
+The contents of the submission:
+     1	/***************************************************************************
+     2	*
+     3	*  Programmer and Purdue Email Address:
+     4	*  1. ozubi@purdue.edu
+     5	*
+     6	*  Homework #: Hw07
+     7	*
+     8	*  Academic Integrity Statement:
+     9	*
+    10	*  I have not used source code obtained from any other unauthorized source, 
+    11	*  either modified or unmodified.  Neither have I provided access to my code 
+    12	*  to another. The project I am submitting is my own original work.
+    13	*
+    14	*  Day, Time, Location of Lab: Tuesday, 3:30, SC289
+    15	*
+    16	*  Program Description: Given a data set that includes up to 25 non-negative integer values;
+    17	*  this program sorts the data set from least to alrgest.
+    18	*
+    19	***************************************************************************/
+    20	#include <math.h>
+    21	#include <stdlib.h>
+    22	#include <stdio.h>
+    23	#define SIZE 25
+    24	
+    25	void getOutput(int,int,int[],int[],int[],int,int);
+    26	int getInput(int[],int*);
+    27	void segData(int[],int,int);
+    28	void sortData(int[],int);
+    29	int getCheck(int[],int[],int);
+    30	
+    31	int main(void)
+    32	{
+    33	//Local Declarations
+    34	  int inputAry[SIZE]; //A place to store the data set entered by the user
+    35	  int numSort; //The number of elements to sort 
+    36	  int dataSize; //The size of the data set
+    37	
+    38	//Function Calls
+    39	  numSort = getInput(inputAry,&dataSize);
+    40	  segData(inputAry,numSort,dataSize);
+    41	
+    42	//Return Statement
+    43	  return(0);
+    44	}
+    45	
+    46	/***************************************************************************
+    47	*
+    48	*  Function Information
+    49	*
+    50	*  Name of Function: getInput
+    51	*
+    52	*  Function Return Type: int
+    53	*
+    54	*  Parameters (list data type, name, and comment one per line):
+    55	*    1. int arry[], the data set entered by the user
+    56	*    2. int* numCount, the dataSize of the data set
+    57	*
+    58	*  Function Description: This function will prompt the user for an input
+    59	*
+    60	***************************************************************************/
+    61	int getInput(int arry[], int* numCount)
+    62	{
+    63	//Local Declarations
+    64	  int i; //Count meter i for looping purposes
+    65	  int count = 0; //Number of iterations while looping
+    66	  int sort; //Elements to sort
+    67	
+    68	//Input Statement for data set
+    69	  printf("Enter data set -> ");
+    70	  for (i = 0; i < SIZE; i++)
+    71	  {
+    72	    scanf("%d", &arry[i]);
+    73	    count++;
+    74	    if (arry[i] < 0)
+    75	    {
+    76	      i = SIZE + 30;
+    77	    }
+    78	  }
+    79	
+    80	//Input statement for the number of elements to sort 
+    81	  do
+    82	  { 
+    83	    printf("Enter number of elements to sort -> ");
+    84	    scanf("%d",&sort);
+    85	    if(sort <= 0)
+    86	    {
+    87	      printf("\nError! Positive values only!\n\n");
+    88	    }
+    89	    if(sort > count - 1)
+    90	    {
+    91	      printf("\nError! Maximum number to sort is %d\n\n",count - 1);
+    92	    }  
+    93	
+    94	  }while((sort <= 0) || (sort > count - 1));
+    95	
+    96	//Storing the size of the data set
+    97	  if(count != 25)
+    98	  {
+    99	    *numCount = count - 1;
+   100	  }
+   101	  else
+   102	  {
+   103	    *numCount = count;
+   104	  }
+   105	
+   106	//Return Statement
+   107	  return (sort);
+   108	} //End getInput
+   109	
+   110	/***************************************************************************
+   111	*
+   112	*  Function Information
+   113	*
+   114	*  Name of Function: segData
+   115	*
+   116	*  Function Return Type: void
+   117	*
+   118	*  Parameters (list data type, name, and comment one per line):
+   119	*    1. int arry[], the data set entered by the user
+   120	*    2. int numSort, the number of elements to sort
+   121	*    3. int dataSize, the data size of the data set
+   122	*
+   123	*  Function Description: This function segments the data set into two parts
+   124	*
+   125	***************************************************************************/
+   126	void segData(int arry[],int numSort, int dataSize)
+   127	{
+   128	//Local Declarations
+   129	  int segArryFirst[numSort]; //The first segmented array
+   130	  int segArryLast[numSort]; //The last segmented array
+   131	  int dummyArryLast[numSort]; //Dummy array to store the last data set for testing purposes
+   132	  int i; //Count meter i for looping purposes
+   133	  int value; //The value outcome of a test
+   134	  int count = 0; //to count the number of iterations in a loop 
+   135	  int initial = 0; //to determine if the first segmented data set is initially sorted
+   136	  int v; //Count meter v for looping purposes
+   137	  int final = 0; //to determine if the final segmented data set is initially sorted
+   138	
+   139	//Segementing the given array to get the first n digits
+   140	  for(i = 0; i < numSort; i++)
+   141	  {
+   142	    value = arry[i];
+   143	    segArryFirst[i] = value;
+   144	    count++;
+   145	  }
+   146	
+   147	//Sorting the first segmented data
+   148	  sortData(segArryFirst,numSort);
+   149	
+   150	//Check if first segment was initially sorted
+   151	  initial = getCheck(segArryFirst,arry,numSort);
+   152	
+   153	//Replacing the correct values into the initial array
+   154	  for(i = 0; i < numSort; i++)
+   155	  {
+   156	    value = segArryFirst[i];
+   157	    arry[i] = value;
+   158	  }
+   159	
+   160	//Reinitialization of v
+   161	  v = 0;
+   162	
+   163	//Segmenting the last parts of the updated array
+   164	  for(i = dataSize - numSort; i < dataSize; i++)
+   165	  {
+   166	    value = arry[i];
+   167	    segArryLast[v] = value;
+   168	    dummyArryLast[v] = value;
+   169	    v++;
+   170	  }
+   171	
+   172	//Ordering the last arry bit
+   173	  sortData(segArryLast,numSort);
+   174	
+   175	//Check if final segment was initially sorted
+   176	  final = getCheck(segArryLast,dummyArryLast,numSort);
+   177	
+   178	//Reinitialization of count v;  
+   179	  v = 0;
+   180	
+   181	//Replacing the correct values into the initial array
+   182	  for(i = dataSize - numSort; i < dataSize; i++)
+   183	  {
+   184	    value = segArryLast[v];
+   185	    arry[i] = value;
+   186	    v++;
+   187	  } 
+   188	
+   189	//Getting the output of the data
+   190	  getOutput(initial,final,segArryFirst,segArryLast,arry,numSort,dataSize);
+   191	
+   192	//Return Statement
+   193	  return;
+   194	} //End segData
+   195	
+   196	/***************************************************************************
+   197	*
+   198	*  Function Information
+   199	*
+   200	*  Name of Function: sortData
+   201	*
+   202	*  Function Return Type: void
+   203	*
+   204	*  Parameters (list data type, name, and comment one per line):
+   205	*    1. int arry[], the data set enterd by the user
+   206	*    2. int dataSize, the data size of the data set
+   207	*
+   208	*  Function Description: This function sorts the data set using the bubble method,
+   209	*  Taken from the CS159 Note packet.
+   210	*
+   211	***************************************************************************/
+   212	void sortData (int arry[], int dataSize)
+   213	{
+   214	//Local Declarations
+   215	  int i; //Count meter i for looping purposes
+   216	  int lcv; //Local called variable of the dataset
+   217	  int temp; //Temporary place to store the data set value
+   218	
+   219	//Sorting algorithim (Taken from the CS159 note packet)
+   220	  for (i = 1; i < dataSize; i++)
+   221	  {
+   222	    for(lcv = 0; lcv < dataSize - i; lcv++)
+   223	    {
+   224	      if(arry[lcv] > arry[lcv + 1])
+   225	      {
+   226	        temp = arry[lcv];
+   227	        arry[lcv] = arry[lcv + 1];
+   228	        arry[lcv + 1] = temp;
+   229	      }
+   230	    }
+   231	  }
+   232	
+   233	//Return Statement
+   234	  return;
+   235	} //End sortData
+   236	
+   237	/***************************************************************************
+   238	*
+   239	*  Function Information
+   240	*
+   241	*  Name of Function: getOutput
+   242	*
+   243	*  Function Return Type: void
+   244	*
+   245	*  Parameters (list data type, name, and comment one per line):
+   246	*    1. int initial, to determine weather the first segmented array was sorted
+   247	*    2. int final, to determine weather the final segmented array was sorted
+   248	*    3. int segArryFirst[], the first segmented array being printed
+   249	*    4. int segArryLastp[], the last segmented array being printed
+   250	*    5. int arry[], the whole array updated and to be printed
+   251	*    6. int numSort, the number of elements sorted in the array
+   252	*    7. int dataSize, the dataSize of the data set
+   253	*
+   254	*  Function Description: This function prints out the desired output of the user. 
+   255	*
+   256	***************************************************************************/
+   257	void getOutput (int initial, int final, int segArryFirst[], int segArryLast[], int arry[], int numSort, int dataSize)
+   258	{
+   259	//Local Declarations
+   260	  int i; //Count meter i for looping
+   261	  
+   262	//Printing the status of the first elements
+   263	  printf("\nStatus of first %d elements: ", numSort);
+   264	  if(initial == 1)
+   265	  {
+   266	    printf("already sorted");
+   267	  }
+   268	  else
+   269	  {
+   270	    for(i = 0; i < numSort; i++)
+   271	    {
+   272	      printf("%d ",segArryFirst[i]);
+   273	    }
+   274	  }
+   275	  printf("\nStatus of final %d elements: ", numSort);
+   276	  if(final == 1)
+   277	  {
+   278	    printf("already sorted");
+   279	  }
+   280	  else
+   281	  {
+   282	    for(i = 0; i < numSort; i++)
+   283	    {
+   284	      printf("%d ",segArryLast[i]);
+   285	    }
+   286	  }
+   287	  
+   288	  printf("\nFinal array configuration: ");
+   289	  for(i = 0; i < dataSize; i++)
+   290	  {
+   291	    printf("%d ", arry[i]);
+   292	  }
+   293	  printf("\n");
+   294	}
+   295	
+   296	/***************************************************************************
+   297	*
+   298	*  Function Information
+   299	*
+   300	*  Name of Function: getCheck
+   301	*
+   302	*  Function Return Type: int
+   303	*
+   304	*  Parameters (list data type, name, and comment one per line):
+   305	*    1.int segArry[], the segmented array data list
+   306	*    2.int arry[], the dummy array being compared to the segmented array
+   307	*    3.int numSort, the data size of the data set being compared
+   308	*
+   309	*  Function Description: This function checks weather or not the segmented array was 
+   310	*  initially sorted.
+   311	*
+   312	***************************************************************************/
+   313	int getCheck(int segArry[], int arry[], int numSort)
+   314	{
+   315	//Local Declarations
+   316	  int check = 0; //To check if the array was arleady sorted
+   317	  int i; //Count meter i for looping purposes
+   318	
+   319	//Check if array was already sorted
+   320	  for (i = 0; i < numSort; i++)
+   321	  { 
+   322	    if (segArry[i] != arry[i])
+   323	    {
+   324	      check = 0; //False
+   325	    }
+   326	    else
+   327	    {
+   328	      check = 1; //True
+   329	    }
+   330	  }
+   331	//Return Statement
+   332	  return(check);
+   333	} //End getCheck

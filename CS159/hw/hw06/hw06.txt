@@ -1,0 +1,244 @@
+The following program submission has been recorded:
+
+Student: ozubi
+Class: CS159
+Section: 13310
+Assignment: hw06.c
+Submission: 2019-04-07 00:54
+
+If the above is incorrect, you are responsible for resubmitting the assignment or seeking assistance from a course staff member prior to the due date! Assignments will not be accepted by e-mail.
+
+If this is for a lab assignment, only one member is allowed to make a submission for the group.  Graders will not evaluate submissions from multiple group members to determine which effort you actually want graded.
+
+*** Please do not reply to this email ***
+
+The contents of the submission:
+     1	/***************************************************************************
+     2	*
+     3	*  Programmer and Purdue Email Address:
+     4	*  1. ozubi@purdue.edu
+     5	*
+     6	*  Homework #: hw06
+     7	*
+     8	*  Academic Integrity Statement:
+     9	*
+    10	*  I have not used source code obtained from any other unauthorized source, 
+    11	*  either modified or unmodified.  Neither have I provided access to my code 
+    12	*  to another. The project I am submitting is my own original work.
+    13	*
+    14	*  Day, Time, Location of Lab: Tuesday, 3:30, SC289
+    15	*
+    16	*  Program Description: This program computes the mean, standard deviation, and range
+    17	*  of values when given 20 integer inputs from the user.
+    18	*
+    19	***************************************************************************/
+    20	#include <stdio.h>
+    21	#include <math.h>
+    22	#include <stdlib.h>
+    23	#define DATASIZE 20
+    24	
+    25	//Global Function Declarations
+    26	double getAverage (int[]);
+    27	void getOutput (int[], double, double, int, int);
+    28	double getMeanDev(int[], double);
+    29	int getMin(int[]);
+    30	int getMax(int[]);
+    31	
+    32	int main (void)
+    33	{
+    34	//Local Declarations
+    35	  double average; //Average value computed
+    36	  double meanDev; //Mean Deviation Computed
+    37	  int i;  //Count meter i
+    38	  int min;  //Min range value
+    39	  int max;  //Max range value
+    40	  int inputValues [DATASIZE]; //Array to store input values
+    41	
+    42	//Input Statements
+    43	  printf("\nEnter 20 integer values -> ");
+    44	  for(i = 0; i < 20; i++)
+    45	  {
+    46	    scanf ("%d", &inputValues[i]);
+    47	  }
+    48	
+    49	//Function Calls
+    50	  max = getMax(inputValues);
+    51	  min = getMin(inputValues);
+    52	  average = getAverage(inputValues);
+    53	  meanDev = getMeanDev(inputValues, average);
+    54	  getOutput(inputValues, average, meanDev, min, max);
+    55	
+    56	//Return Statement
+    57	  return(0);
+    58	} //End main
+    59	
+    60	/***************************************************************************
+    61	*
+    62	*  Function Information
+    63	*
+    64	*  Name of Function: getAverage
+    65	*
+    66	*  Function Return Type: double
+    67	*
+    68	*  Parameters (list data type, name, and comment one per line):
+    69	*    1. int ary [], the twenty values entered by the user
+    70	*
+    71	*  Function Description: This function computes the average of the values entered
+    72	*  by the user
+    73	*
+    74	***************************************************************************/
+    75	double getAverage (int ary[])
+    76	{
+    77	//Local Declarations
+    78	  int sum = 0; // Sum initalization
+    79	  int i = 0; //Count meter i
+    80	
+    81	//Calculation
+    82	  for (i = 0; i < 20; i++)
+    83	  { 
+    84	    sum += ary[i];
+    85	  }
+    86	
+    87	//Return Statement
+    88	  return (sum / 20.0);
+    89	} //End getAverage
+    90	
+    91	/***************************************************************************
+    92	*
+    93	*  Function Information
+    94	*
+    95	*  Name of Function: getOutput
+    96	*
+    97	*  Function Return Type: void
+    98	*
+    99	*  Parameters (list data type, name, and comment one per line):
+   100	*    1. int ary [], the values entered by the user
+   101	*    2. double average, the average value computed
+   102	*    3. int min, the min range value
+   103	*    4. int max, the max range value
+   104	*
+   105	*  Function Description: This function displays the output of the values computed
+   106	*
+   107	***************************************************************************/
+   108	void getOutput (int ary[], double average, double meanDev, int min, int max)
+   109	{
+   110	//Local Declarations
+   111	  int i; //Count meter i
+   112	
+   113	//Output Statements
+   114	  printf("\nData set as entered: ");
+   115	  for (i = 0; i < 20; i++)
+   116	  {
+   117	    printf("%d", ary[i]);
+   118	    if (i != 19)
+   119	    {
+   120	      printf(", ");
+   121	    }
+   122	  } 
+   123	  printf("\nMean: %0.2lf", average);
+   124	  printf("\nMean Deviation: %0.2lf", meanDev);
+   125	  printf("\nRange of values: %d, %d", min, max);
+   126	  printf("\n");
+   127	
+   128	//Return Statement
+   129	  return;
+   130	} //End getOutput
+   131	 
+   132	/***************************************************************************
+   133	*
+   134	*  Function Information
+   135	*
+   136	*  Name of Function: getMeanDev
+   137	*
+   138	*  Function Return Type: double
+   139	*
+   140	*  Parameters (list data type, name, and comment one per line):
+   141	*    1. int ary [], the values entered by the user
+   142	*    2. double average, the average value computed
+   143	*
+   144	*  Function Description: This function calculates the mean deviation
+   145	*
+   146	***************************************************************************/
+   147	double getMeanDev (int ary[], double average)
+   148	{
+   149	//Local Declarations
+   150	  double meanDev = 0; //Mean deviation initialization
+   151	  int i; //Count meter i
+   152	
+   153	//Calculations
+   154	  for(i = 0; i < 20; i++)
+   155	  {
+   156	    meanDev += fabs(ary[i] - average);
+   157	  }
+   158	
+   159	//Return Statement
+   160	  return (meanDev / 20.0);
+   161	} //End getMeanDev
+   162	
+   163	/***************************************************************************
+   164	*
+   165	*  Function Information
+   166	*
+   167	*  Name of Function: getMax
+   168	*
+   169	*  Function Return Type: int
+   170	*
+   171	*  Parameters (list data type, name, and comment one per line):
+   172	*    1. int ary [], the values entered by the user
+   173	*
+   174	*  Function Description: This function finds the max range value of the values
+   175	*  entered by the user.
+   176	*
+   177	***************************************************************************/
+   178	int getMax (int ary[])
+   179	{
+   180	//Local Declarations  
+   181	  int i; //Count meter i
+   182	  int max = ary[0]; //Initalization of max range
+   183	
+   184	//Check for max range
+   185	  for (i = 1; i < 20; i++)
+   186	  {
+   187	    if (max < ary[i])
+   188	    {
+   189	      max = ary[i];
+   190	    }
+   191	  }
+   192	
+   193	//Return Statement
+   194	  return(max);
+   195	} //End getMax
+   196	
+   197	/***************************************************************************
+   198	*
+   199	*  Function Information
+   200	*
+   201	*  Name of Function:
+   202	*
+   203	*  Function Return Type: getMin
+   204	*
+   205	*  Parameters (list data type, name, and comment one per line):
+   206	*    1. int ary [], the values entered by the user
+   207	*
+   208	*  Function Description: This function finds the min range value of the
+   209	*  values entered by the user.
+   210	*
+   211	***************************************************************************/
+   212	int getMin(int ary[])
+   213	{
+   214	//Local Declarations 
+   215	  int i; //Count meter i
+   216	  int min = ary[0]; //Initalization of min range
+   217	
+   218	//Check for lowest range
+   219	  for (i = 0; i < 20; i++)
+   220	  {
+   221	    if (min > ary[i])
+   222	    {
+   223	      min = ary[i];
+   224	    }
+   225	  }
+   226	
+   227	//Return Statement
+   228	  return (min);
+   229	} //End getMin

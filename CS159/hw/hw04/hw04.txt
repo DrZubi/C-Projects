@@ -1,0 +1,288 @@
+The following program submission has been recorded:
+
+Student: ozubi
+Class: CS159
+Section: 13310
+Assignment: hw04.c
+Submission: 2019-03-03 18:15
+
+If the above is incorrect, you are responsible for resubmitting the assignment or seeking assistance from a course staff member prior to the due date! Assignments will not be accepted by e-mail.
+
+If this is for a lab assignment, only one member is allowed to make a submission for the group.  Graders will not evaluate submissions from multiple group members to determine which effort you actually want graded.
+
+*** Please do not reply to this email ***
+
+The contents of the submission:
+     1	/***************************************************************************
+     2	*
+     3	*  Programmer and Purdue Email Address:
+     4	*  1. ozubi@purdue.edu
+     5	*
+     6	*  Homework #: hw04 
+     7	*
+     8	*  Academic Integrity Statement:
+     9	*
+    10	*  I have not used source code obtained from any other unauthorized source, 
+    11	*  either modified or unmodified.  Neither have I provided access to my code 
+    12	*  to another. The project I am submitting is my own original work.
+    13	*
+    14	*  Day, Time, Location of Lab: Tuesday, 3:30, SC289
+    15	*
+    16	*  Program Description: This program generates a game from a random seed given by the user
+    17	*  The program simulates five spins of the routllete wheel, and displays the result of each game
+    18	*  and the players total score.
+    19	*
+    20	***************************************************************************/
+    21	#include <stdio.h>
+    22	#include <stdlib.h>
+    23	#include <math.h>
+    24	
+    25	void displayResults(char, int); //Displays the results of the user input
+    26	void getValues(char*, char*, char*, int*); //Function that asks the values from the user
+    27	void getRandom(int, int*, int*, int*, int*, int*); //Function that calculates the game random numbers
+    28	int getScore(char, int); //Function that computes scores of each game
+    29	
+    30	int main (void)
+    31	{
+    32	//Local declarations
+    33	  char choiceOne; //First choice of the user
+    34	  char choiceTwo; //Second choice of the user
+    35	  char choiceThree; //Third choice of the user
+    36	
+    37	  int seed; //Seed given by the user
+    38	  int tossOne; //Outcome of toss one
+    39	  int tossTwo; //Outcome of toss two
+    40	  int tossThree; //Outcome of toss three
+    41	  int tossFour; //Outcome of toss four
+    42	  int tossFive; //Outcome of toss five
+    43	  int scoreOne; //Score of game one
+    44	  int scoreTwo; //Score of game two
+    45	  int scoreThree; //Score of game three
+    46	  int totalScore; //Calculated total score
+    47	
+    48	//Program description
+    49	  printf("\nPossible Choices\n");
+    50	  printf("\n'1', '2', or '3' for the 1st, 2nd, or 3rd Dozen 2 Points");
+    51	  printf("\n'R' (Red)  or 'B' (Black)                       1 Point");
+    52	  printf("\n'E' (Even) or 'O' (Odd)                         1 Point");
+    53	  printf("\n'L' (Low)  or 'H' (High)                        1 Point");
+    54	  printf("\n-=-=-=-\n");
+    55	
+    56	//Input statements
+    57	  getValues(&choiceOne, &choiceTwo, &choiceThree, &seed);
+    58	  srand(seed);
+    59	  getRandom(seed, &tossOne, &tossTwo, &tossThree, &tossFour, &tossFive);
+    60	  
+    61	//Calculations for game scores
+    62	  scoreOne = getScore(choiceOne, tossOne) + getScore(choiceOne, tossTwo) + getScore(choiceOne, tossThree) + getScore(choiceOne, tossFour) + getScore (choiceOne, tossFive);
+    63	
+    64	  scoreTwo = getScore(choiceTwo, tossOne) + getScore(choiceTwo, tossTwo) + getScore(choiceTwo, tossThree) + getScore(choiceTwo, tossFour) + getScore (choiceTwo, tossFive);
+    65	
+    66	  scoreThree = getScore(choiceThree, tossOne) + getScore(choiceThree, tossTwo) + getScore(choiceThree, tossThree) + getScore(choiceThree, tossFour) + getScore (choiceThree, tossFive);
+    67	
+    68	  totalScore = scoreOne + scoreTwo + scoreThree;
+    69	
+    70	//Output print statement
+    71	  printf("Game           Score");
+    72	  printf("\n1:");
+    73	  displayResults(choiceOne, scoreOne);
+    74	  printf("\n2:");
+    75	  displayResults(choiceTwo, scoreTwo);
+    76	  printf("\n3:");
+    77	  displayResults(choiceThree, scoreThree);
+    78	  printf("\nTotal Score:%6d\n",totalScore);
+    79	
+    80	//Return statement
+    81	  return (0);
+    82	} //End main
+    83	
+    84	/***************************************************************************
+    85	*
+    86	*  Function Information
+    87	*
+    88	*  Name of Function: getValues
+    89	*
+    90	*  Function Return Type: void
+    91	*
+    92	*  Parameters (list data type, name, and comment one per line):
+    93	*    1. char*, choiceOne, address of the first choice given by the user
+    94	*    2. char*, choiceTwo, address of the second choice given by the user
+    95	*    3. char*, choiceThree, address of the third choice given by the user
+    96	*    4. int*, seeed, address of the seed given by the user
+    97	*
+    98	*  Function Description: This function asks the user for the three choices they would
+    99	*  like to select and the seed of the game. 
+   100	*
+   101	***************************************************************************/
+   102	void getValues (char* choiceOne, char* choiceTwo, char* choiceThree, int* seed) //Function that asks the input values from the user
+   103	{
+   104	//Input statements
+   105	  printf("Enter three choices -> ");
+   106	  scanf("%c %c %c", choiceOne, choiceTwo, choiceThree);
+   107	  printf("Enter the seed -> ");
+   108	  scanf("%d", seed);
+   109	  printf("-=-=-=-");
+   110	
+   111	//Return Statement
+   112	  return; 
+   113	} //End getValues
+   114	
+   115	/***************************************************************************
+   116	*
+   117	*  Function Information
+   118	*
+   119	*  Name of Function: getRandom
+   120	*
+   121	*  Function Return Type: void
+   122	*
+   123	*  Parameters (list data type, name, and comment one per line):
+   124	*    1. int, seed, the input seed by the user
+   125	*    2. int*, tossOne, the address of the outcome of toss one
+   126	*    3. int*, tossTwo, the address of the outcome of toss two
+   127	*    4. int*, tossThree, the address of the outcome of toss three
+   128	*    5. int*, tossFour, the address of the outcome of toss four
+   129	*    6. int*, tossFive, the address of the outcome of toss Five
+   130	*
+   131	*  Function Description: This function takes the seed (given by the user) and generates
+   132	*  the random outcomes of five random tosses.
+   133	*
+   134	***************************************************************************/
+   135	void getRandom(int seed, int* tossOne, int* tossTwo, int* tossThree, int* tossFour, int* tossFive) //Function that generates random tosses
+   136	{
+   137	//Local declarations
+   138	  int randomNumberOne; //Random outcome of toss one
+   139	  int randomNumberTwo; //Random outcome of toss two
+   140	  int randomNumberThree; //Random outcome of toss three
+   141	  int randomNumberFour; //Random outcome of toss four
+   142	  int randomNumberFive; //Random outcome of toss five
+   143	
+   144	//Random number generator for the five outcomes
+   145	  randomNumberOne = rand() % 37;
+   146	  randomNumberTwo = rand() % 37;
+   147	  randomNumberThree = rand() % 37;
+   148	  randomNumberFour = rand() % 37;
+   149	  randomNumberFive = rand() % 37;
+   150	
+   151	  *tossOne = randomNumberOne;
+   152	  *tossTwo = randomNumberTwo;
+   153	  *tossThree = randomNumberThree;
+   154	  *tossFour = randomNumberFour;
+   155	  *tossFive = randomNumberFive;
+   156	
+   157	//Output statements
+   158	  printf("\nThe Ball Landed On: %d %d %d %d %d\n", randomNumberOne, randomNumberTwo, randomNumberThree, randomNumberFour, randomNumberFive);
+   159	  printf("-=-=-=-\n");
+   160	
+   161	//Return statement
+   162	  return;
+   163	} //End getRandom
+   164	
+   165	/***************************************************************************
+   166	*
+   167	*  Function Information
+   168	*
+   169	*  Name of Function: getScore
+   170	*
+   171	*  Function Return Type: int
+   172	*
+   173	*  Parameters (list data type, name, and comment one per line):
+   174	*    1. char, selection, the game selection input of the user
+   175	*    2. int, outcome, the game outcome
+   176	*
+   177	*  Function Description: This function calculates the outcome of the game
+   178	*  selected by the user.
+   179	*
+   180	***************************************************************************/
+   181	int getScore(char selection, int outcome)
+   182	{
+   183	//Local declarations
+   184	  int score = 0; //Initialization of the points scored a the game
+   185	                                          
+   186	//Switch Statement
+   187	  if((selection == 'R') && ((outcome == 1) || (outcome == 3) || (outcome == 5) || (outcome == 7) || (outcome == 9) || (outcome == 12) || (outcome == 14) || (outcome == 16) || (outcome == 18) || (outcome == 19) || (outcome == 21) || (outcome == 23) || (outcome == 25) || (outcome == 27) || (outcome == 30) || (outcome == 32) || (outcome == 34) || (outcome == 36))) 
+   188	  {
+   189	    ++score;
+   190	  }
+   191	  else if((selection == 'B') && ((outcome == 2) || (outcome == 4) || (outcome == 6) || (outcome == 8) || (outcome == 10) || (outcome == 11) || (outcome == 13) || (outcome == 15) || (outcome == 17) || (outcome == 20) || (outcome == 22) || (outcome == 24) || (outcome == 26) || (outcome == 28) || (outcome == 29) || (outcome == 31) || (outcome == 33) || (outcome == 35))) 
+   192	  {
+   193	    ++score;
+   194	  }
+   195	  else if((selection == 'E') && (outcome % 2 == 0) && (outcome != 0))
+   196	  {
+   197	    ++score;
+   198	  }
+   199	  else if((selection == 'O') && (outcome % 2 != 0))
+   200	  {
+   201	    ++score;
+   202	  }
+   203	  else if((selection == 'L') && (((outcome >= 1)) && ((outcome <= 18))))
+   204	  {
+   205	    ++score;
+   206	  }
+   207	  else if((selection == 'H') && (((outcome >= 19)) && ((outcome <= 36))))
+   208	  {
+   209	    ++score;
+   210	  }
+   211	  else if((selection == '1') && (((outcome >= 1) && (outcome <= 12))))
+   212	  {
+   213	    ++score;
+   214	    ++score;
+   215	  }
+   216	  else if((selection == '2') && ((outcome >= 13) && (outcome <= 24)))
+   217	  {
+   218	    ++score;
+   219	    ++score;
+   220	  }
+   221	  else if((selection == '3') && ((outcome >= 25) && (outcome <= 36)))
+   222	  {
+   223	    ++score;
+   224	    ++score;
+   225	  }
+   226	
+   227	//Return Statement
+   228	  return (score);
+   229	} //End getScore
+   230	
+   231	/***************************************************************************
+   232	*
+   233	*  Function Information
+   234	*
+   235	*  Name of Function: displayResults
+   236	*
+   237	*  Function Return Type: void
+   238	*
+   239	*  Parameters (list data type, name, and comment one per line):
+   240	*    1. char, input, the input character from the user
+   241	*    2. int, score, the score of the game selected
+   242	*
+   243	*  Function Description: This function displays the results of the user inputs.
+   244	*
+   245	***************************************************************************/
+   246	void displayResults(char input, int score)
+   247	{
+   248	//Switch
+   249	  switch(input)
+   250	  {
+   251	    case 'R':  printf(" Red%12d",score);
+   252	               break;
+   253	    case 'B':  printf(" Black%10d",score);
+   254	               break;
+   255	    case 'E':  printf(" Even%11d",score);
+   256	               break;
+   257	    case 'O':  printf(" Odd%12d",score);
+   258	               break;
+   259	    case 'L':  printf(" Low%12d",score);
+   260	               break;
+   261	    case 'H':  printf(" High%11d",score);
+   262	               break;
+   263	    case '1':  printf(" 1st Dozen%6d",score);
+   264	               break;
+   265	    case '2':  printf(" 2nd Dozen%6d",score);
+   266	               break;
+   267	    case '3':  printf(" 3rd Dozen%6d",score);
+   268	               break;
+   269	  }
+   270	
+   271	//Return statement
+   272	  return;
+   273	} //End displayResults

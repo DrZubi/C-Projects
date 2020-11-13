@@ -1,0 +1,177 @@
+The following program submission has been recorded:
+
+Student: ozubi
+Class: CS159
+Section: 13310
+Assignment: hw05.c
+Submission: 2019-03-23 23:25
+
+If the above is incorrect, you are responsible for resubmitting the assignment or seeking assistance from a course staff member prior to the due date! Assignments will not be accepted by e-mail.
+
+If this is for a lab assignment, only one member is allowed to make a submission for the group.  Graders will not evaluate submissions from multiple group members to determine which effort you actually want graded.
+
+*** Please do not reply to this email ***
+
+The contents of the submission:
+     1	/***************************************************************************
+     2	*
+     3	*  Programmer and Purdue Email Address:
+     4	*  1. ozubi@purdue.edu
+     5	*
+     6	*  Homework #: Hw05
+     7	*
+     8	*  Academic Integrity Statement:
+     9	*
+    10	*  I have not used source code obtained from any other unauthorized source, 
+    11	*  either modified or unmodified.  Neither have I provided access to my code 
+    12	*  to another. The project I am submitting is my own original work.
+    13	*
+    14	*  Day, Time, Location of Lab: Tuesday, 3:30, SC289
+    15	*
+    16	*  Program Description: This program presents the user with two options from which 
+    17	*  they can select and perform tests on the random number generator.
+    18	*
+    19	***************************************************************************/
+    20	#include <math.h>
+    21	#include <stdlib.h>
+    22	#include <stdio.h>
+    23	
+    24	void getInput(void);
+    25	int getRandom(int);
+    26	
+    27	int main(void)
+    28	{
+    29	//Welcome Statement
+    30	  printf("\nRandom Number Testing Options");
+    31	  printf("\n1. Find a seed");
+    32	  printf("\n2. Find a number\n");
+    33	
+    34	//Output Statements
+    35	  getInput();
+    36	
+    37	//Return Statement
+    38	  return (0);
+    39	} //End main
+    40	
+    41	/***************************************************************************
+    42	*
+    43	*  Function Information
+    44	*
+    45	*  Name of Function: getInput
+    46	*
+    47	*  Function Return Type: void
+    48	*
+    49	*  Parameters (list data type, name, and comment one per line):
+    50	*    1. void
+    51	*
+    52	*  Function Description: This function displays the input of the user value
+    53	*  and their outcomes. 
+    54	*
+    55	***************************************************************************/
+    56	void getInput(void)
+    57	{
+    58	//Local Declarations
+    59	  int option = 0; //Initialization of option choice
+    60	  int inputSeed = 0; //Initialization of seed input 
+    61	  int inputDesired = -1; //Initialization of desired input
+    62	  int outputSeed; //Output seed value
+    63	  int randomNumber; //Random number generated from random number generator
+    64	  int count = 1; //Initialization of counts
+    65	
+    66	//Check for valid option inputs
+    67	  while(option != 1 && option != 2)
+    68	  {
+    69	    printf("Enter option -> ");
+    70	    scanf("%d",&option);
+    71	    if (option != 2 && option != 1)
+    72	    {
+    73	      printf("\nError - Invalid option! Please try again!\n\n");
+    74	    }
+    75	  } 
+    76	
+    77	//Check for valid seed inputs
+    78	  while (inputSeed <= 0 || inputSeed > 100000)
+    79	  {
+    80	    printf("Enter starting seed value -> ");
+    81	    scanf("%d", &inputSeed);
+    82	    if (inputSeed <= 0 || inputSeed > 100000)
+    83	    {
+    84	      printf("\nError - Enter a value from 1 to 100000\n\n");
+    85	    }
+    86	  }
+    87	
+    88	//Check for valid desired inputs
+    89	  while (inputDesired < 0 || inputDesired > 100000)
+    90	  {
+    91	    printf("Enter desired integer number -> ");
+    92	    scanf("%d", &inputDesired);
+    93	    if (inputDesired < 0 || inputDesired > 100000)
+    94	    {
+    95	      printf("\nError - Enter a value from 0 to 100000\n\n");
+    96	    }
+    97	  }
+    98	
+    99	//Initialization of random numbers
+   100	  outputSeed = inputSeed;
+   101	  randomNumber = getRandom(outputSeed);
+   102	
+   103	//Calculations for each options
+   104	  if (option == 2)
+   105	  {
+   106	    while (randomNumber != inputDesired)
+   107	    {
+   108	      ++count;
+   109	      randomNumber = (rand() % 100001); 
+   110	    }
+   111	  }
+   112	  else
+   113	  {
+   114	    while (randomNumber != inputDesired)
+   115	    {
+   116	      ++outputSeed;
+   117	      randomNumber = getRandom(outputSeed);
+   118	    }
+   119	  }
+   120	  
+   121	//Output Statments
+   122	  printf("\nGiven starting seed [%d] and desired number [%d]", inputSeed, inputDesired);
+   123	  
+   124	  switch(option)
+   125	  {
+   126	    case 1:
+   127	      printf("\nSeed that generates desired number first: %d\n", outputSeed);
+   128	      break;
+   129	    case 2:
+   130	      printf("\nCount of number generations until desired found: %d\n", count);
+   131	  }
+   132	
+   133	//Return Statement
+   134	  return;
+   135	} //End getInput
+   136	
+   137	/***************************************************************************
+   138	*
+   139	*  Function Information
+   140	*
+   141	*  Name of Function: getRandom
+   142	*
+   143	*  Function Return Type: int
+   144	*
+   145	*  Parameters (list data type, name, and comment one per line):
+   146	*    1. int, inputSeed, the seed value input given by the user
+   147	*
+   148	*  Function Description: This function creates a random number when given a seed
+   149	*
+   150	***************************************************************************/
+   151	int getRandom (int inputSeed)
+   152	{
+   153	//Local Declarations
+   154	  int value; //To store the random generated value
+   155	
+   156	//Random value generator
+   157	  srand(inputSeed);
+   158	  value = rand() % 100001;
+   159	
+   160	//Return Statement;
+   161	  return (value);
+   162	}

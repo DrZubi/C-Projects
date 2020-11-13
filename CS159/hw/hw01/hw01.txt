@@ -1,0 +1,80 @@
+The following program submission has been recorded:
+
+Student: ozubi
+Class: CS159
+Section: 13310
+Assignment: hw01.c
+Submission: 2019-01-20 16:33
+
+If the above is incorrect, you are responsible for resubmitting the assignment or seeking assistance from a course staff member prior to the due date! Assignments will not be accepted by e-mail.
+
+If this is for a lab assignment, only one member is allowed to make a submission for the group.  Graders will not evaluate submissions from multiple group members to determine which effort you actually want graded.
+
+*** Please do not reply to this email ***
+
+The contents of the submission:
+     1	
+     2	/***************************************************************************
+     3	*
+     4	*  Programmer and Purdue Email Address:
+     5	*  1. ozubi@purdue.edu
+     6	*  
+     7	*
+     8	*  Homework #:Hw01
+     9	*
+    10	*  Academic Integrity Statement:
+    11	*
+    12	*  I have not used source code obtained from any other unauthorized source, 
+    13	*  either modified or unmodified.  Neither have I provided access to my code 
+    14	*  to another. The project I am submitting is my own original work.
+    15	*
+    16	*  Day, Time, Location of Lab: Tuesday, 3:30pm , sc289
+    17	*
+    18	*  Program Description: This program calculates Amdahl's speedup and runtime with the
+    19	*  given number of cores, runtime and the percent of the program that can be 
+    20	*  parallelized.
+    21	*
+    22	***************************************************************************/
+    23	#include <stdio.h>
+    24	
+    25	int main (void)
+    26	{
+    27	
+    28	// Local Declarations
+    29	  double base_runtime; // User given base runtime
+    30	  double parallelized; // User given number of program parallelized
+    31	  int cores; // User given number of cores
+    32	  double speedup; // Calculated speedup time with given cores
+    33	  double infinite; // Calculated speedup with infinite cores
+    34	  double diffrence; // Diffrence between runtimes
+    35	  double runtime; // Calculated runtime with given cores
+    36	  double inf_runtime; // Calculated infinite core runtime
+    37	
+    38	// User input print statements
+    39	  printf("\nEnter the runtime of the program (seconds) -> ");
+    40	  scanf("%lf", &base_runtime);
+    41	  printf("Enter the percent of the program that can be parallelized -> ");
+    42	  scanf("%lf", &parallelized);
+    43	  printf("Enter the number of cores -> ");
+    44	  scanf("%d", &cores);
+    45	 
+    46	// Calculations with given user inputs
+    47	  speedup = 1 / ((1 - (parallelized / 100)) + ((parallelized / 100) / cores)); //Equation to calculate the speedup
+    48	  infinite = 1 / ((1 - (parallelized / 100))); //Equation to calculate speedup with infinite cores
+    49	  runtime = base_runtime / speedup; //equation to calculate runtime
+    50	  inf_runtime = base_runtime / infinite; //equation to calculate runtime with infinite cores
+    51	  diffrence = runtime - inf_runtime; //Diffrence between runtimes 
+    52	    
+    53	// Print statements feedback
+    54	  printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+    55	  printf("\nBase runtime: %0.3lf seconds",base_runtime);
+    56	  printf("\nAmdahl's speedup with %d cores: %0.3lf",cores,speedup);
+    57	  printf("\nRuntime with %d cores: %0.3lf seconds",cores,runtime);
+    58	  printf("\nAmdahl's speedup with infinite cores: %0.3lf",infinite);
+    59	  printf("\nRuntime with infinite cores: %0.3lf seconds",inf_runtime);
+    60	  printf("\nRuntime improvement difference: %0.3lf seconds",diffrence);
+    61	  printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+    62	  
+    63	// Return statement
+    64	  return 0; //main
+    65	}

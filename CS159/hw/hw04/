@@ -1,0 +1,122 @@
+/***************************************************************************
+*
+*  Programmer and Purdue Email Address:
+*  1. ozubi@purdue.edu
+*
+*  Homework #: hw04 
+*
+*  Academic Integrity Statement:
+*
+*  I have not used source code obtained from any other unauthorized source, 
+*  either modified or unmodified.  Neither have I provided access to my code 
+*  to another. The project I am submitting is my own original work.
+*
+*  Day, Time, Location of Lab: Tuesday, 3:30, SC289
+*
+*  Program Description: This program generates a game from a random seed given by the user
+*  The program simulates five spins of the routllete wheel, and displays the result of each game
+*  and the players total score.
+*
+***************************************************************************/
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+void getValues(char*, char*, char*, int*);
+void getRandom(int);
+
+int main (void)
+{
+//Local Declarations
+  char choiceOne;
+  char choiceTwo;
+  char choiceThree;
+  int seed;
+  int values;
+
+//Program Description
+  printf("\nPossible Choices\n");
+  printf("\n'1', '2', or '3' for the 1st, 2nd, or 3rd Dozen 2 Points");
+  printf("\n'R' (Red)  or 'B' (Black)                       1 Point");
+  printf("\n'E' (Even) or 'O' (Odd)                         1 Point");
+  printf("\n'L' (Low)  or 'H' (High)                        1 Point");
+  printf("\n-=-=-\n");
+
+//Statements
+  getValues(&choiceOne, &choiceTwo, &choiceThree, &seed);
+  srand(seed);
+  getRandom(seed);
+
+//Return Statement
+  return (0);
+} //End main
+
+/***************************************************************************
+*
+*  Function Information
+*
+*  Name of Function:
+*
+*  Function Return Type:
+*
+*  Parameters (list data type, name, and comment one per line):
+*    1.
+*    2.
+*    3.
+*
+*  Function Description:
+*
+***************************************************************************/
+void getValues (char* choiceOne, char* choiceTwo, char* choiceThree, int* seed)
+{
+//Statements
+  printf("Enter three choices -> ");
+  scanf("%c %c %c", choiceOne, choiceTwo, choiceThree);
+  printf("Enter the seed -> ");
+  scanf("%d", seed);
+  printf("-=-=-=-");
+
+//Return Statement
+  return; 
+} //End getValues
+
+/***************************************************************************
+*
+*  Function Information
+*
+*  Name of Function:
+*
+*  Function Return Type:
+*
+*  Parameters (list data type, name, and comment one per line):
+*    1.
+*    2.
+*    3.
+*
+*  Function Description:
+*
+***************************************************************************/
+void getRandom(int seed)
+{
+//Local Declarations
+  int randomNumberOne;
+  int randomNumberTwo;
+  int randomNumberThree;
+  int randomNumberFour;
+  int randomNumberFive;
+
+//Random number generator
+  randomNumberOne = rand() % 37;
+  randomNumberTwo = rand() % 37;
+  randomNumberThree = rand() % 37;
+  randomNumberFour = rand() % 37;
+  randomNumberFive = rand() % 37;
+//  randomNumberOne = srand(randomNumberOne);
+ 
+
+//Output Statement
+  printf("The Ball Landed On: %d %d %d %d %d\n", randomNumberOne, randomNumberTwo, randomNumberThree, randomNumberFour, randomNumberFive);
+
+//Return Statement
+  return;
+}//End getRandom

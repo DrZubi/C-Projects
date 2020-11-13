@@ -1,0 +1,120 @@
+The following program submission has been recorded:
+
+Student: ozubi
+Class: CS159
+Section: 13310
+Assignment: hw02.c
+Submission: 2019-01-31 21:59
+
+If the above is incorrect, you are responsible for resubmitting the assignment or seeking assistance from a course staff member prior to the due date! Assignments will not be accepted by e-mail.
+
+If this is for a lab assignment, only one member is allowed to make a submission for the group.  Graders will not evaluate submissions from multiple group members to determine which effort you actually want graded.
+
+*** Please do not reply to this email ***
+
+The contents of the submission:
+     1	/***************************************************************************
+     2	*
+     3	*  Programmer and Purdue Email Address:
+     4	*  1. ozubi@purdue.edu
+     5	*
+     6	*  Homework #: Hw02
+     7	*
+     8	*  Academic Integrity Statement:
+     9	*
+    10	*  I have not used source code obtained from any other unauthorized source, 
+    11	*  either modified or unmodified.  Neither have I provided access to my code 
+    12	*  to another. The project I am submitting is my own original work.
+    13	*
+    14	*  Day, Time, Location of Lab: Tuesday, 3:30, SC289
+    15	*
+    16	*  Program Description: Given the data size, the complexity category, and the
+    17	*  coefficient, this program calculates the runtime for two algorithms and then
+    18	*  identifies the faster algorithm and the time diffrence between the two.
+    19	*
+    20	***************************************************************************/
+    21	#include <stdio.h>
+    22	#include <math.h>
+    23	
+    24	int main(void)
+    25	{
+    26	
+    27	//local Declarations
+    28	  int dataSize; //Size of the data set to sort
+    29	  int complexityOne; //Complexity option for algorithm one
+    30	  int complexityTwo; //Complexity option for algorithm two
+    31	  double coefficientOne; //Coefficient of algorithm one
+    32	  double coefficientTwo; //Coefficient of algorithm two 
+    33	  int fastestAlg; //The fastest algorithm of the two calculated
+    34	  double difference; //The time difference of both algorithms
+    35	  int factor1; //Factor one used for logic operations
+    36	  int factor2; //Factor two used for logic operations
+    37	  int factor3; //Factor three used for logic operations
+    38	  double resultOne; //Result of algorithim one
+    39	  double resultTwo; //Result of algorithim two
+    40	  double equationOne; //Complexity equation one
+    41	  double equationTwo; //Complexity equation two
+    42	  double equationThree; //Complexity equation three
+    43	  
+    44	//Print Statements
+    45	  printf("\n-=- Algorithm Complexity Options -=-\n");
+    46	  printf("\n1. Linear time [n]\n");
+    47	  printf("2. Logarithmic time [nlog(n)]\n");
+    48	  printf("3. Exponential time [n^2]\n");
+    49	
+    50	//Input Statements
+    51	  printf("\nEnter the size of the data set to sort -> ");
+    52	  scanf("%d", &dataSize);
+    53	  printf("Select complexity option #1 -> ");
+    54	  scanf("%d", &complexityOne);
+    55	  printf("Enter the coefficient of algorithm #1 -> ");
+    56	  scanf("%lf", &coefficientOne);
+    57	  printf("Select complexity option #2 -> ");
+    58	  scanf("%d", &complexityTwo);
+    59	  printf("Enter the coefficient of algorithm #2 -> ");
+    60	  scanf("%lf", &coefficientTwo);
+    61	
+    62	//Complexity Equations
+    63	  equationOne = dataSize;
+    64	  equationTwo = dataSize * log2(dataSize);
+    65	  equationThree = pow(dataSize,2);
+    66	  
+    67	//Logic for determining the complexity of algorithm one
+    68	  factor1 = 1 / complexityOne;
+    69	  factor3 = (complexityOne / 3);
+    70	  factor2 = (complexityOne / 2) - (factor3);
+    71	
+    72	//Result of algorithm one
+    73	  resultOne = coefficientOne * ((factor1 * equationOne) + (factor2 * equationTwo) + (factor3 * equationThree));
+    74	
+    75	//Logic for determining the complexity of algorithm two
+    76	  factor1 = 1 / complexityTwo;
+    77	  factor3 = (complexityTwo / 3);
+    78	  factor2 = (complexityTwo / 2) - (factor3);
+    79	 
+    80	//Result of algorithim two
+    81	  resultTwo = coefficientTwo * ((factor1 * equationOne) + (factor2 * equationTwo) + (factor3 * equationThree));
+    82	
+    83	//Calculation for the diffrence of the two algorithms
+    84	  difference = resultTwo - resultOne;
+    85	  difference = pow(difference,2);
+    86	  difference = sqrt(difference);
+    87	
+    88	//Logic for testing which algorithm runs fastest    
+    89	  factor1 = resultOne / resultTwo;
+    90	  factor2 = resultTwo / resultOne;
+    91	  factor1 = (factor1 + 1) % (factor1 + 2);  
+    92	  factor2 = (factor2 + 1) % (factor2 + 2);  
+    93	  fastestAlg = factor1 * 2 + factor2 * 1;  
+    94	  fastestAlg = fastestAlg / (factor1 + factor2);
+    95	  fastestAlg = fastestAlg * ((factor1 * factor2) / 2); 
+    96	 
+    97	//Output Statements
+    98	  printf("\nTime for algorithm #1 in seconds: %0.3lf", resultOne);
+    99	  printf("\nTime for algorithm #2 in seconds: %0.3lf", resultTwo);
+   100	  printf("\nFaster algorithm #: %d", fastestAlg);
+   101	  printf("\nTime difference (seconds): %0.3lf\n", difference);
+   102	
+   103	//Return Statement
+   104	  return 0;
+   105	} //Main

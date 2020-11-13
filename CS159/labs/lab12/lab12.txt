@@ -1,0 +1,281 @@
+The following program submission has been recorded:
+
+Student: ozubi
+Class: CS159
+Section: 13310
+Assignment: lab12.c
+Submission: 2019-04-20 03:24
+
+If the above is incorrect, you are responsible for resubmitting the assignment or seeking assistance from a course staff member prior to the due date! Assignments will not be accepted by e-mail.
+
+If this is for a lab assignment, only one member is allowed to make a submission for the group.  Graders will not evaluate submissions from multiple group members to determine which effort you actually want graded.
+
+*** Please do not reply to this email ***
+
+The contents of the submission:
+     1	/***************************************************************************
+     2	*
+     3	*  Programmers and Purdue Email Addresses:
+     4	*  1. ozubi@purdue.edu
+     5	*  2. apilasze@purdue.edu
+     6	*  3. imesser@purdue.edu (delete line if no third partner)
+     7	*
+     8	*  Lab #: lab12
+     9	*
+    10	*  Academic Integrity Statement:
+    11	*
+    12	*  We have not used source code obtained from any other unauthorized source,
+    13	*  either modified or unmodified.  Neither have we provided access to our code
+    14	*  to another. The project we are submitting is our own original work.
+    15	*
+    16	*  Day, Time, Location of Lab: Tuesday, 3:30, SC289
+    17	*
+    18	*  Program Description:
+    19	*
+    20	***************************************************************************/
+    21	#include <stdio.h>
+    22	#include <math.h>
+    23	#include <stdlib.h>
+    24	#define SIZE 30
+    25	
+    26	//Global Function Declaration
+    27	void getInput(int[]);
+    28	void getCalc(int[],int,int);
+    29	void sortArry(int, int[]);
+    30	int getSum(int, int[]);
+    31	void sortData(int[],int);
+    32	void getOutput(int[],int,int);
+    33	
+    34	int main (void)
+    35	{
+    36	//Local Declarations
+    37	  int input[SIZE]; //Data set for the fences
+    38	
+    39	//Function Call
+    40	  getInput(input);
+    41	
+    42	//Return Statement
+    43	  return (0);
+    44	} //End main
+    45	
+    46	/***************************************************************************
+    47	*
+    48	*  Function Information
+    49	*
+    50	*  Name of Function: getInput
+    51	*
+    52	*  Function Return Type: void
+    53	*
+    54	*  Parameters (list data type, name, and comment one per line):
+    55	*    1. int arry[], the data set
+    56	*
+    57	*  Function Description: The functions gets the input values from the user.
+    58	*
+    59	****************************************************************************/
+    60	void getInput (int arry[])
+    61	{
+    62	//Local Declarations
+    63	  int i; //Count meter i for looping purposes
+    64	  int segments; //Segment number
+    65	  int count; //To keep track of data set
+    66	
+    67	//Input for the fence segment heights
+    68	  printf("\nEnter fence segment heights -> ");
+    69	  for (i = 0; i < SIZE; i++)
+    70	  {
+    71	    scanf("%d", &arry[i]);
+    72	    count++;
+    73	    if (arry[i] < 0)
+    74	    {
+    75	      i = SIZE + 100;
+    76	    }
+    77	  }
+    78	
+    79	//Input for the desired number of segments to level
+    80	  do
+    81	  {
+    82	    printf("Enter desired number of segments to level -> ");
+    83	    scanf("%d", &segments);
+    84	    if (segments < 0) //Check for positive values
+    85	    {
+    86	      printf("\nError! Number must be positive!\n\n");
+    87	    }
+    88	    else if (segments > count) //Check if value is within rage of data set
+    89	    {
+    90	      printf("\nError! Number cannot exceed data set size!\n\n");
+    91	    }
+    92	  } while ((segments < 0) || (segments > count));
+    93	
+    94	//Function Call
+    95	  getCalc(arry,segments,count);
+    96	
+    97	//Return Statement
+    98	  return;
+    99	} //End getInput
+   100	
+   101	/***************************************************************************
+   102	*
+   103	*  Function Information
+   104	*
+   105	*  Name of Function: getCalc
+   106	*
+   107	*  Function Return Type: void
+   108	*
+   109	*  Parameters (list data type, name, and comment one per line):
+   110	*    1. int arry[], the dataset given to us by the user
+   111	*    2. int segments, the segment size
+   112	*    3. int dataSize, the dataSize of the dataset
+   113	*
+   114	*  Function Description: This function segments the dataset
+   115	*
+   116	***************************************************************************/
+   117	void getCalc (int arry[], int segments, int dataSize)
+   118	{
+   119	//Local Declarations
+   120	  int segArry[segments]; //Segmented array
+   121	  int materials; //Materials needed for the fence
+   122	  int i = 0; //Count meter i for looping purposes
+   123	  int v = 1; //Count meter v for looping purposes
+   124	  int segArryDum[segments]; //Dummy array for comparision purposes
+   125	  int value; //Value to store for the segmented array
+   126	  int valueDum; //Value to store for the dummy array
+   127	
+   128	//Sort the data set
+   129	  sortArry(dataSize, arry);
+   130	
+   131	//Segmenting the array
+   132	  do
+   133	  {
+   134	    for(i = 0; i < segments; i++)
+   135	    { 
+   136	      //For upper limit bound MAY BE CAUSING SEGMENTATION ISSUE CAUSE OF VALUE V
+   137	      valueDum = arry[v + 1];
+   138	      segArryDum[v] = valueDum;
+   139	
+   140	      //For segmented part
+   141	      value = arry[v];
+   142	      segArry[i] = value;
+   143	      v++;
+   144	    }
+   145	  }while(getSum(segments, segArryDum) < getSum(segments, segArry));
+   146	
+   147	//Getting materials
+   148	  materials = getSum(segments, segArry);
+   149	
+   150	//Getting Output
+   151	  getOutput(segArry, materials, segments);
+   152	
+   153	//Return Statement
+   154	  return;
+   155	} //End getCalc
+   156	
+   157	/***************************************************************************
+   158	*
+   159	*  Function Information
+   160	*
+   161	*  Name of Function: sortArry
+   162	*
+   163	*  Function Return Type: void
+   164	*
+   165	*  Parameters (list data type, name, and comment one per line):
+   166	*    1. int dataSize, the size of the data set
+   167	*    2. int arry[], the data set given to us by the user
+   168	*
+   169	*  Function Description: This function sorts the data set from least to greatest.
+   170	*
+   171	***************************************************************************/
+   172	void sortArry(int dataSize, int arry[])
+   173	{
+   174	//Local Declarations  
+   175	  int i; //Count meter i for looping purposes
+   176	  int lcv; //located constant variable of the dataSet
+   177	  int temp; //Temp variable to store the data from dataset
+   178	
+   179	//Sorting the array (TAKEN FROM THE CS159 NOTE PACKET)
+   180	  for (i = 1; i < dataSize; i++)
+   181	  {
+   182	    for(lcv = 0; lcv < dataSize - i; lcv++)
+   183	    {
+   184	      if(arry[lcv] > arry[lcv + 1])
+   185	      {
+   186	        temp = arry[lcv];
+   187	        arry[lcv] = arry[lcv + 1];
+   188	        arry[lcv + 1] = temp;
+   189	      }
+   190	    }
+   191	  }
+   192	
+   193	//Return Statement
+   194	  return;
+   195	} //End sortArry
+   196	
+   197	/***************************************************************************
+   198	*
+   199	*  Function Information
+   200	*
+   201	*  Name of Function: getSum
+   202	*
+   203	*  Function Return Type: int
+   204	*
+   205	*  Parameters (list data type, name, and comment one per line):
+   206	*    1. int segments, the size of the segmented data set
+   207	*    2. int int segArry[], the data set segmented
+   208	*
+   209	*  Function Description: This function finds the sum of the segmented dataset. 
+   210	*
+   211	***************************************************************************/
+   212	int getSum(int segments, int segArry[])
+   213	{
+   214	//Local Declarations  
+   215	  int sum = 0; //To store the sum
+   216	  int i; //Count meter i for looping purposes
+   217	
+   218	//Finding the sum of the segmented array
+   219	  for(i = 0; i < segments; i++)
+   220	  {
+   221	    sum += segArry[segments - 1] - segArry[i];
+   222	  }
+   223	
+   224	//Return Statement
+   225	  return (sum);
+   226	} //End getSum
+   227	
+   228	/***************************************************************************
+   229	*
+   230	*  Function Information
+   231	*
+   232	*  Name of Function: getOutput
+   233	*
+   234	*  Function Return Type: void
+   235	*
+   236	*  Parameters (list data type, name, and comment one per line):
+   237	*    1. int arry[], the dataset given by the user
+   238	*    2. int materials, the materials needed
+   239	*    3. int segmentSize, the data size of the data set
+   240	*
+   241	*  Function Description: This function prints the output of the values given and calculated
+   242	*
+   243	***************************************************************************/
+   244	void getOutput(int arry[], int materials, int segmentSize)
+   245	{
+   246	//Local Declarations
+   247	  int i; //Count meter i for looping purposes
+   248	
+   249	//Output Statements
+   250	  printf("\nMaterials required: %d", materials);
+   251	  if (materials != 0)
+   252	  {
+   253	    printf("\nSegments ending at same height: ");
+   254	    for (i = 0; i < segmentSize; i++)
+   255	    {
+   256	      printf("%d ", arry[i]);
+   257	    }
+   258	  }
+   259	  printf("\n");
+   260	
+   261	//Return Statement
+   262	  return;
+   263	} //End getOutput
+
+Course standards violations detected:
+ -0.4 Array size must be declared using a proper symbolic defined constant, line 120 (2 times)

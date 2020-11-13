@@ -1,0 +1,192 @@
+The following program submission has been recorded:
+
+Student: ozubi
+Class: CS159
+Section: 13310
+Assignment: lab09.c
+Submission: 2019-03-30 20:51
+
+If the above is incorrect, you are responsible for resubmitting the assignment or seeking assistance from a course staff member prior to the due date! Assignments will not be accepted by e-mail.
+
+If this is for a lab assignment, only one member is allowed to make a submission for the group.  Graders will not evaluate submissions from multiple group members to determine which effort you actually want graded.
+
+*** Please do not reply to this email ***
+
+The contents of the submission:
+     1	/***************************************************************************
+     2	*
+     3	*  Programmers and Purdue Email Addresses:
+     4	*  1. ozubi@purdue.edu
+     5	*  2. apilasze@purdue.edu
+     6	*  3. imesser@purdue.edu (delete line if no third partner)
+     7	*
+     8	*  Lab #:lab09
+     9	*
+    10	*  Academic Integrity Statement:
+    11	*
+    12	*  We have not used source code obtained from any other unauthorized source,
+    13	*  either modified or unmodified.  Neither have we provided access to our code
+    14	*  to another. The project we are submitting is our own original work.
+    15	*
+    16	*  Day, Time, Location of Lab: Tuesday, 3:30, SC 289
+    17	*
+    18	*  Program Description: This program computes the averages and standard deviation
+    19	*  of consecuative seeds that generate random numbers when given the datasize. 
+    20	*
+    21	***************************************************************************/
+    22	#include <stdio.h>
+    23	#include <math.h>
+    24	#include <stdlib.h>
+    25	
+    26	void getOutput (int,int,double,double);
+    27	double calcAverage (int,int);
+    28	double calcStd (int,int,double);
+    29	int main (void)
+    30	{
+    31	//Local Declarations
+    32	  int dataSize = 0; //Datasize value entered by the user
+    33	  int seed; //seed entered by the user
+    34	  int numberTest = 0; //Number of tests that will occur
+    35	  int count = 0; //Count meter to run the number of tests
+    36	  int set = 0; //The display set number for each test
+    37	  double std; //The standard deviation calculated
+    38	  double average; //The average value calculated
+    39	
+    40	//Input Statements
+    41	  printf("\nEnter starting seed value -> ");
+    42	  scanf("%d", &seed);
+    43	  srand(seed);
+    44	
+    45	//Check for valid input for number seeds
+    46	  while ((numberTest < 1 || numberTest > 10))
+    47	  {
+    48	    printf("Enter number of seeds to test -> ");
+    49	    scanf("%d", &numberTest);
+    50	    if(numberTest < 1 || numberTest > 10)
+    51	    {
+    52	      printf("\nError! Number of seeds must be 1 - 10\n\n");
+    53	    }
+    54	  }
+    55	
+    56	//Check for valid input for data set size
+    57	  while ((dataSize < 1) || (dataSize > 10000))
+    58	  {
+    59	    printf("Enter the data set size -> ");
+    60	    scanf("%d", &dataSize);
+    61	    if(dataSize < 1 || dataSize > 10000)
+    62	    {
+    63	      printf("\nError! Data set size must be 1 - 10000\n\n");
+    64	    }   
+    65	  }
+    66	
+    67	//Output Statment
+    68	  printf("\n           Seed   Average   Std Dev");
+    69	  printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+    70	  
+    71	//Determination for number of rows to print with their respected values
+    72	  while (count != numberTest)
+    73	  {
+    74	    ++count;
+    75	    ++set;
+    76	    average = calcAverage(seed,dataSize);
+    77	    std = calcStd(seed, dataSize, average);
+    78	    getOutput(set,seed,average,std);
+    79	    ++seed;
+    80	  }
+    81	  printf("\n\n");
+    82	  
+    83	//Return Statement
+    84	  return (0);
+    85	} //End main
+    86	
+    87	/***************************************************************************
+    88	*
+    89	*  Function Information
+    90	*
+    91	*  Name of Function: getOutput
+    92	*
+    93	*  Function Return Type: void
+    94	*
+    95	*  Parameters (list data type, name, and comment one per line):
+    96	*    1. int, setNumber, the number of iterations of the function
+    97	*    2. int, seed, the seed incremented
+    98	*    3. double, average, the calculated average for the given seed
+    99	*    4. double, deviation, the calculated standard deviation 
+   100	*
+   101	*  Function Description: This function prints the output
+   102	*
+   103	***************************************************************************/
+   104	void getOutput (int setNumber, int seed, double average, double deviation)
+   105	{
+   106	//Output Statement
+   107	  printf("\nSet # %d:%7d%10.1lf%10.1lf",setNumber,seed,average,deviation);
+   108	
+   109	//Return Statement
+   110	  return;
+   111	} //End getOutput
+   112	
+   113	/***************************************************************************
+   114	*
+   115	*  Function Information
+   116	*
+   117	*  Name of Function: calcAverage
+   118	*
+   119	*  Function Return Type: double
+   120	*
+   121	*  Parameters (list data type, name, and comment one per line):
+   122	*    1. int, seed, the seed value entered by the user
+   123	*    2. int, dataSize, the data size entered by the user
+   124	*
+   125	*  Function Description: This function computes the average value of the given seed
+   126	*
+   127	***************************************************************************/
+   128	double calcAverage (int seed, int dataSize)
+   129	{
+   130	//Local Declarations
+   131	  double count = 1.0; //Count meter to run the number of random number generations
+   132	  double average = 0.0; //Initialization of the average value
+   133	
+   134	  srand(seed);
+   135	  for (count = 0; count < dataSize; count++)
+   136	  {
+   137	    average += rand() % 1001 * 1.0 / dataSize;
+   138	  }
+   139	
+   140	//Return Statemnt
+   141	  return (average);
+   142	} //End calcAverage
+   143	
+   144	/***************************************************************************
+   145	*
+   146	*  Function Information
+   147	*
+   148	*  Name of Function: calcStd
+   149	*
+   150	*  Function Return Type: double
+   151	*
+   152	*  Parameters (list data type, name, and comment one per line):
+   153	*    1. int, seed, the seed entered by the user
+   154	*    2. int, dataSize, the value of the datasize entered by the user
+   155	*    3. double, average, the average value calculated
+   156	*
+   157	*  Function Description: This function calculates the standard deviation
+   158	*
+   159	***************************************************************************/
+   160	double calcStd (int seed, int dataSize, double average)
+   161	{
+   162	//Local Declarations
+   163	  double std = 0; //Initialization of the standard deviation
+   164	  int count = 0; //The count meter for the number of tests to run
+   165	
+   166	//Calculation for standard deviation
+   167	  srand(seed);
+   168	  for (count = 0; count < dataSize; count++)
+   169	  {
+   170	    std += pow(rand() % 1001 - average, 2.0);
+   171	  }
+   172	
+   173	  std = sqrt(std / (dataSize - 1));
+   174	
+   175	//Return Statment
+   176	  return (std);
+   177	} //End calcStd

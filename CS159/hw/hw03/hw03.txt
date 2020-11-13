@@ -1,0 +1,292 @@
+The following program submission has been recorded:
+
+Student: ozubi
+Class: CS159
+Section: 13310
+Assignment: hw03.c
+Submission: 2019-02-13 20:02
+
+If the above is incorrect, you are responsible for resubmitting the assignment or seeking assistance from a course staff member prior to the due date! Assignments will not be accepted by e-mail.
+
+If this is for a lab assignment, only one member is allowed to make a submission for the group.  Graders will not evaluate submissions from multiple group members to determine which effort you actually want graded.
+
+*** Please do not reply to this email ***
+
+The contents of the submission:
+     1	/***************************************************************************
+     2	*
+     3	*  Programmer and Purdue Email Address:
+     4	*  1. ozubi@purdue.edu
+     5	*
+     6	*  Homework #: Hw03
+     7	*
+     8	*  Academic Integrity Statement:
+     9	*
+    10	*  I have not used source code obtained from any other unauthorized source, 
+    11	*  either modified or unmodified.  Neither have I provided access to my code 
+    12	*  to another. The project I am submitting is my own original work.
+    13	*
+    14	*  Day, Time, Location of Lab: Tuesday, 3:30-5:20, SC 289
+    15	*
+    16	*  Program Description: This program computes the radius, volume, and surface
+    17	*  area of three spheres (large, medium, and small) that make up a snowman.
+    18	*
+    19	***************************************************************************/
+    20	#include <stdio.h>
+    21	#include <math.h>
+    22	#include <stdlib.h>
+    23	
+    24	//Global Declarations
+    25	int getRadius(void);
+    26	void getRadii(double, double*, double*, double*);
+    27	void getCircumferences(double, double, double, double*, double*, double*);
+    28	double getSurfaceAreas(double, double, double, double*, double*, double*);
+    29	double getVolumes(double, double, double, double*, double*, double*);
+    30	void displayOutputs(double, double, double, double, double, double, double, double, double, double, double, double, double, double);
+    31	
+    32	//Function Main
+    33	int main(void)
+    34	{
+    35	//Local Declarations
+    36	  double radiusInput; //Given radius by user
+    37	  double radiusOne; //Radius of the bottom sphere
+    38	  double radiusTwo; //Radius of the second sphere
+    39	  double radiusThree; //Radius of the top sphere
+    40	  double circumferenceOne; //Circumference of the bottom sphere
+    41	  double circumferenceTwo; //Circumference of the middle sphere
+    42	  double circumferenceThree; //Circumference of the top sphere
+    43	  double surfaceAreaOne; //Surface area of the bottom sphere
+    44	  double surfaceAreaTwo; //Surface area of the middle sphere
+    45	  double surfaceAreaThree; //Surface area of the top sphere
+    46	  double volumeOne; //Volume of the bottom sphere
+    47	  double volumeTwo; //Volume of the middle sphere
+    48	  double volumeThree; //Volume of the top sphere
+    49	  double totalVolume; //Total volume of all three spheres
+    50	  double totalSurfaceArea; //Total surface area of all three spheres
+    51	
+    52	//User Input Statment
+    53	  radiusInput = getRadius();
+    54	  getRadii(radiusInput, &radiusOne, &radiusTwo, &radiusThree);
+    55	
+    56	//Statements
+    57	  totalSurfaceArea = getSurfaceAreas(radiusOne, radiusTwo, radiusThree, &surfaceAreaOne, &surfaceAreaTwo, &surfaceAreaThree);
+    58	  totalVolume = getVolumes(radiusOne, radiusTwo, radiusThree, &volumeOne, &volumeTwo, &volumeThree);
+    59	  getCircumferences(radiusOne, radiusTwo, radiusThree, &circumferenceOne, &circumferenceTwo, &circumferenceThree);
+    60	
+    61	//Output Statements
+    62	  displayOutputs(radiusOne, radiusTwo, radiusThree, circumferenceOne, circumferenceTwo, circumferenceThree, surfaceAreaOne, surfaceAreaTwo, surfaceAreaThree, volumeOne, volumeTwo, volumeThree, totalSurfaceArea, totalVolume);
+    63	
+    64	//Return Statements
+    65	  return(0);
+    66	} //End Main
+    67	
+    68	/***************************************************************************
+    69	*
+    70	*  Function Information
+    71	*
+    72	*  Name of Function: getRadius
+    73	*
+    74	*  Function Return Type: int
+    75	*
+    76	*  Parameters (list data type, name, and comment one per line):
+    77	*    1. void
+    78	*
+    79	*  Function Description: This function gets the radius interger from user
+    80	*
+    81	***************************************************************************/
+    82	int getRadius (void)
+    83	{
+    84	//Local Declarations
+    85	  int input; //input number from user
+    86	  
+    87	//Statements
+    88	  printf("\nPlease enter the value of the largest radius -> ");
+    89	  scanf("%d", &input);
+    90	
+    91	//Return Satement
+    92	  return (input);
+    93	}
+    94	
+    95	/***************************************************************************
+    96	*
+    97	*  Function Information
+    98	*
+    99	*  Name of Function: getRadii
+   100	*
+   101	*  Function Return Type: void
+   102	*
+   103	*  Parameters (list data type, name, and comment one per line):
+   104	*    1. double, inputRadius, the input radius given by the user
+   105	*    2. double*, radiusOne, the address of the first radius 
+   106	*    3. double*, radiusTwo, the address of the second radius
+   107	*    4. double*, radiusThree, the address of the third radius
+   108	*
+   109	*  Function Description: This function calculates the diffrent radii of the
+   110	*  spheres when given the user input radius.
+   111	*
+   112	***************************************************************************/
+   113	void getRadii (double inputRadius, double* radiusOne, double* radiusTwo, double* radiusThree) 
+   114	{
+   115	//Local Delcarations
+   116	  *radiusOne = inputRadius;
+   117	  *radiusTwo = inputRadius / 2.0;
+   118	  *radiusThree = inputRadius / 4.0;
+   119	
+   120	//Return Statement
+   121	  return;
+   122	} //End of function getRadii
+   123	
+   124	/***************************************************************************
+   125	*
+   126	*  Function Information
+   127	*
+   128	*  Name of Function: getCircumferences
+   129	*
+   130	*  Function Return Type: void
+   131	*
+   132	*  Parameters (list data type, name, and comment one per line):
+   133	*    1. double, radiusOne, the value of the first sphere's radius
+   134	*    2. double, radiusTwo, the value of the second sphere's radius
+   135	*    3. double, radiusThree, the value of the third sphere's radius
+   136	*    4. double*, circumferenceOne, the address of circumferenceOne
+   137	*    5. double*, circumferenceTwo, the address of circumferenceTwo
+   138	*    6. double*, circumferenceThree, the address of circumferenceThree
+   139	*
+   140	*  Function Description: This function calculates the circumferences of all
+   141	*  three spheres when given the values of all three spheres' radius.
+   142	*
+   143	**************************************************************************/
+   144	void getCircumferences (double radiusOne, double radiusTwo, double radiusThree, double* circumferenceOne, double* circumferenceTwo, double* circumferenceThree)
+   145	{
+   146	//Statements
+   147	  *circumferenceOne = 2.0 * M_PI * radiusOne;
+   148	  *circumferenceTwo = 2.0 * M_PI * radiusTwo;
+   149	  *circumferenceThree = 2.0 * M_PI * radiusThree;
+   150	
+   151	//Return Statement
+   152	  return;
+   153	} //End of function getCircumferences
+   154	
+   155	/***************************************************************************
+   156	*
+   157	*  Function Information
+   158	*
+   159	*  Name of Function: getSurfaceAreas
+   160	*
+   161	*  Function Return Type: double
+   162	*
+   163	*  Parameters (list data type, name, and comment one per line):
+   164	*    1. double, radiusOne, the value of the first sphere's radius
+   165	*    2. double, radiusTwo, the value of the second Sphere's radius
+   166	*    3. double, radiusThree, the value of the third sphere's radius
+   167	*    4. double*, surfaceAreaOne, the address of surfaceAreaOne
+   168	*    5. double*, surfaceAreaTwo, the address of surfaceAreaTwo
+   169	*    6. double*, surfaceAreaThree, the address of surfaceAreaThree
+   170	*
+   171	*  Function Description: This function calculates the surface areas of all
+   172	*  three spheres when given the spheres' surface areas.
+   173	*
+   174	**************************************************************************/
+   175	double getSurfaceAreas (double radiusOne, double radiusTwo, double radiusThree, double* surfaceAreaOne, double* surfaceAreaTwo, double* surfaceAreaThree)
+   176	{
+   177	//Local Declarations
+   178	  double calcSurfaceArea = 0; //Calculated total surface area of all three spheres
+   179	
+   180	//Statements
+   181	  *surfaceAreaOne = 4.0 * M_PI * pow(radiusOne, 2);
+   182	  *surfaceAreaTwo = 4.0 * M_PI * pow(radiusTwo, 2);
+   183	  *surfaceAreaThree = 4.0 * M_PI * pow(radiusThree, 2);
+   184	  calcSurfaceArea = *surfaceAreaOne + *surfaceAreaTwo + *surfaceAreaThree;
+   185	
+   186	//Return Statement
+   187	  return(calcSurfaceArea);
+   188	} //End of function getSurfaceArea
+   189	
+   190	/***************************************************************************
+   191	*
+   192	*  Function Information
+   193	*
+   194	*  Name of Function: getVolumes
+   195	*
+   196	*  Function Return Type: double
+   197	*
+   198	*  Parameters (list data type, name, and comment one per line):
+   199	*    1. double, radiusOne, the value of the first sphere's radius
+   200	*    2. double, radiusTwo, the value of the second sphere's radius
+   201	*    3. double, radiusThree, the value of the third sphere's radius
+   202	*    4. double*, volumeOne, the address of volumeOne
+   203	*    5. double*, volumeTwo, the address of volumeTwo
+   204	*    6. double*, volumeThree, the address of volumeThree
+   205	*   
+   206	*  Function Description: This function calculates the volume of the three
+   207	*  spheres when given the spheres' radii. 
+   208	*
+   209	***************************************************************************/
+   210	double getVolumes (double radiusOne, double radiusTwo, double radiusThree, double* volumeOne, double* volumeTwo, double* volumeThree)
+   211	{
+   212	//Local Declarations
+   213	  double calcVolume = 0; //Calculation for the total volume of all three spheres
+   214	
+   215	//Statements
+   216	  *volumeOne = (4.0 / 3.0) * M_PI * pow(radiusOne,3);
+   217	  *volumeTwo = (4.0 / 3.0) * M_PI * pow(radiusTwo,3);
+   218	  *volumeThree = (4.0 / 3.0) * M_PI * pow(radiusThree,3);
+   219	  calcVolume = *volumeOne + *volumeTwo + *volumeThree;
+   220	
+   221	//Return Statement
+   222	  return(calcVolume);
+   223	} //End of function getVolumes
+   224	
+   225	/***************************************************************************
+   226	*
+   227	*  Function Information
+   228	*
+   229	*  Name of Function: displayOutputs
+   230	*
+   231	*  Function Return Type: void
+   232	*
+   233	*  Parameters (list data type, name, and comment one per line):
+   234	*    1. double, radiusOne, radius of sphere one 
+   235	*    2. double, radiusTwo, radius of sphere two 
+   236	*    3. double, radiusThree, radius of sphere three 
+   237	*    4. double, circumferenceOne, circumference of sphere one
+   238	*    5. double, circumferenceTwo, circumference of sphere two
+   239	*    6. double, circumferenceThree, circumference of sphere three
+   240	*    7. double, surfaceAreaOne, surface area of sphere one
+   241	*    8. double, surfaceAreaTwo, surface area of sphere two
+   242	*    9. double, surfaceAreaThree, surface area of sphere three
+   243	*    10. double, volumeOne, volume of sphere one
+   244	*    11. double, volumeTwo, volume of sphere two
+   245	*    12. double, volumeThree, volume of sphere three
+   246	*    13. double, totalSurfaceArea, total surface area of all three spheres
+   247	*    14. double, totalVolume, total volume of all three spheres
+   248	*
+   249	*  Function Description: This function displays the output of the radii,
+   250	*  circumferences, surface areas, and volumes of all three spheres. 
+   251	*
+   252	***************************************************************************/
+   253	void displayOutputs (double radiusOne, double radiusTwo, double radiusThree, double circumferenceOne, double circumferenceTwo, double circumferenceThree, double surfaceAreaOne, double surfaceAreaTwo, double surfaceAreaThree, double volumeOne, double volumeTwo, double volumeThree, double totalSurfaceArea, double totalVolume)
+   254	{
+   255	//Output statements
+   256	  printf("\nRadius #1 is:%16.2lf",radiusOne);
+   257	  printf("\nCircumference #1 is:%9.2lf",circumferenceOne);
+   258	  printf("\nSurface Area #1 is:%10.2lf",surfaceAreaOne);
+   259	  printf("\nVolume #1 is:%16.2lf",volumeOne);
+   260	  printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+   261	  printf("\nRadius #2 is:%16.2lf",radiusTwo);
+   262	  printf("\nCircumference #2 is:%9.2lf",circumferenceTwo);
+   263	  printf("\nSurface Area #2 is:%10.2lf",surfaceAreaTwo);
+   264	  printf("\nVolume #2 is:%16.2lf",volumeTwo);
+   265	  printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+   266	  printf("\nRadius #3 is:%16.2lf",radiusThree);
+   267	  printf("\nCircumference #3 is:%9.2lf",circumferenceThree);
+   268	  printf("\nSurface Area #3 is:%10.2lf",surfaceAreaThree);
+   269	  printf("\nVolume #3 is:%16.2lf",volumeThree);
+   270	  printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+   271	  printf("\nTotal Volume:%16.2lf",totalVolume);
+   272	  printf("\nTotal Surface Area:%10.2lf",totalSurfaceArea);
+   273	  printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+   274	
+   275	//Return Statement
+   276	  return; 
+   277	} //End of function displayOutputs
